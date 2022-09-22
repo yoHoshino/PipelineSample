@@ -1,0 +1,54 @@
+# This is a basic workflow to help you get started with Actions
+
+name: WindoesCI
+
+# ワークフローが実行されるタイミングを制御します
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  buildAndroid:
+    # The type of runner that the job will run on
+    runs-on: windows-2022
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET SDK ${{env.DOTNETVERSION}}
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '${{env.DOTNETVERSION}}'
+
+      - name: List installed .NET info
+        shell: pwsh
+        run: dotnet --info
+        
+      - name: Install .NET MAUI
+        shell: bash
+        run: |
+          dotnet nuget locals all --clear
+          dotnet workload install maui --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+          dotnet workload install android --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
+          
+      - name: Restore nuget packages
+        run: dotnet restore ./DotnetMauiApp/DotnetMauiApp.csproj
+        
+      - name: Build Android App
+        shell: bash
+        run: dotnet publish -f:net6.0-android -c:Release
+        
+      - uses: actions/upload-artifact@v3
+        with:
+          name: artifact-android
+          path: ./DotnetMauiApp/bin/Release/net6.0-android/publish/*.apk
+          
