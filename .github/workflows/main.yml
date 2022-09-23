@@ -48,7 +48,7 @@ jobs:
         
       - name: Build Android App
         shell: bash
-        run: dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningStorePass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" /p:AndroidSigningKeyStore="${{ env.DECRYPTED_KEYSTORE }}" /p:AndroidSigningKeyAlias=key
+        run: dotnet publish -f:net6.0-android -c:Release //p:AndroidSigningStorePass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" //p:AndroidSigningKeyStore="${{ env.DECRYPTED_KEYSTORE }}" //p:AndroidSigningKeyAlias=key
         
 #       - name: Sign dev build
 #         shell: bash
