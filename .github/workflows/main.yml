@@ -40,7 +40,15 @@ jobs:
       - name: Restore nuget packages
         run: | 
           dotnet restore ./DotnetMauiApp/DotnetMauiApp.csproj
+          dotnet restore ./PipelineSampleCore/PipelineSampleCore.csproj
           dotnet restore ./PipelineSampleTest/PipelineSampleTest.csproj
+          
+      - name: Build and Run UnitTests
+        shell: bash
+        run: |
+          dotnet build ./PipelineSampleCore/PipelineSampleCore.csproj
+          dotnet build ./PipelineSampleTest/PipelineSampleTest.csproj
+          dotnet test ./PipelineSampleTest/PipelineSampleTest.csproj --no-build --verbosity normal
           
       - name: Extract Android signing key from env
         shell: bash
@@ -57,13 +65,6 @@ jobs:
 #       - name: Sign dev build
 #         shell: bash
 #         run: jarsigner -keystore android/release.decrypted.keystore -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./DotnetMauiApp/bin/Release/net6.0-android/publish/*Signed.aab key
-
-
-      - name: Build and Run UnitTests
-        shell: bash
-        run: |
-          dotnet build ./PipelineSampleTest/PipelineSampleTest.csproj
-          dotnet test ./PipelineSampleTest/PipelineSampleTest.csproj --no-build --verbosity normal
   
       - uses: actions/upload-artifact@v3
         with:
