@@ -56,4 +56,8 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\PipelineSampleCore\PipelineSampleCore.csproj" />
+	</ItemGroup>
+
 </Project>

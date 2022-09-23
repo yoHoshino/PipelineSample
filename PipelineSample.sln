@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetMauiApp", "DotnetMauiApp\DotnetMauiApp.csproj", "{ED781F46-DCB8-4D32-86D0-FBA7552A53E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineSampleCore", "PipelineSampleCore\PipelineSampleCore.csproj", "{259E0C62-01AC-442C-9087-2793CB3331E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineSampleTest", "PipelineSampleTest\PipelineSampleTest.csproj", "{96E7BBB8-35AC-4574-84BE-83B8539352EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{ED781F46-DCB8-4D32-86D0-FBA7552A53E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED781F46-DCB8-4D32-86D0-FBA7552A53E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED781F46-DCB8-4D32-86D0-FBA7552A53E9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{259E0C62-01AC-442C-9087-2793CB3331E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259E0C62-01AC-442C-9087-2793CB3331E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259E0C62-01AC-442C-9087-2793CB3331E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259E0C62-01AC-442C-9087-2793CB3331E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96E7BBB8-35AC-4574-84BE-83B8539352EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96E7BBB8-35AC-4574-84BE-83B8539352EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96E7BBB8-35AC-4574-84BE-83B8539352EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96E7BBB8-35AC-4574-84BE-83B8539352EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
