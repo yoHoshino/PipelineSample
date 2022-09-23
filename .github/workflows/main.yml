@@ -58,6 +58,9 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: artifact-android
-          path: ./DotnetMauiApp/bin/Release/net6.0-android/publish/*.apk
+          name: artifact-android-apk
+          path: |
+            ./DotnetMauiApp/bin/Release/net6.0-android/publish/*.apk
+            ./DotnetMauiApp/bin/Release/net6.0-android/publish/*Signed.aab
+          
           
