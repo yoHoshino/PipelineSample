@@ -38,8 +38,10 @@ jobs:
           dotnet workload install android --source https://aka.ms/dotnet6/nuget/index.json --source https://api.nuget.org/v3/index.json
           
       - name: Restore nuget packages
-        run: dotnet restore ./DotnetMauiApp/DotnetMauiApp.csproj
-        
+        run: | 
+          dotnet restore ./DotnetMauiApp/DotnetMauiApp.csproj
+          dotnet restore ./PipelineSampleTest/PipelineSampleTest.csproj
+          
       - name: Extract Android signing key from env
         shell: bash
         run: |
@@ -56,6 +58,13 @@ jobs:
 #         shell: bash
 #         run: jarsigner -keystore android/release.decrypted.keystore -storepass "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" -signedjar ./DotnetMauiApp/bin/Release/net6.0-android/publish/*Signed.aab key
 
+
+      - name: Build and Run UnitTests
+        shell: bash
+        run: |
+          dotnet build ./PipelineSampleTest/PipelineSampleTest.csproj
+          dotnet test ./PipelineSampleTest/PipelineSampleTest.csproj --no-build --verbosity normal
+  
       - uses: actions/upload-artifact@v3
         with:
           name: artifact-android
