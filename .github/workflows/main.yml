@@ -47,8 +47,8 @@ jobs:
           base64 -d "${{ env.BASE64_KYESTORE }}" > "${{ env.DECRYPTED_KEYSTORE }}"
         
       - name: Build Android App
-        shell: bash
-        run: dotnet publish -f:net6.0-android -c:Release //p:AndroidSigningStorePass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" //p:AndroidSigningKeyStore="${{ env.DECRYPTED_KEYSTORE }}" //p:AndroidSigningKeyAlias=key
+        shell: cmd
+        run: dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningStorePass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" /p:AndroidSigningKeyStore="${{ env.DECRYPTED_KEYSTORE }}" /p:AndroidSigningKeyAlias=key
         
 #       - name: Sign dev build
 #         shell: bash
