@@ -18,8 +18,5 @@ public class UnitTest1
 
         counter.CountUp();
         Assert.Equal("Clicked 3 times", counter.CountText);
-
-        counter.CountUp();
-        Assert.Equal("Clicked 3 times", counter.CountText);
     }
 }
