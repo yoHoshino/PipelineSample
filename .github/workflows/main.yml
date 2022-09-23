@@ -10,10 +10,8 @@ on:
   
 env:
   DOTNETVERSION: 6.0.400
-  BASE64_KYESTORE: android/release.keystore.base64
-  DECRYPTED_KEYSTORE: android/release.decrypted.keystore
-  
-  
+  BASE64_KYESTORE: ./android/release.keystore.base64
+  DECRYPTED_KEYSTORE: ./android/release.decrypted.keystore
 
 jobs:
   buildAndroid:
