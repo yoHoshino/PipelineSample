@@ -10,8 +10,9 @@ on:
   
 env:
   DOTNETVERSION: 6.0.400
-  BASE64_KYESTORE: ./android/release.keystore.base64
-  DECRYPTED_KEYSTORE: ./android/release.decrypted.keystore
+  BASE64_KYESTORE: /android/release.keystore.base64
+  DECRYPTED_KEYSTORE: /android/release.decrypted.keystore
+  DECRYPTED_KEYSTORE_BACKSLASH: \\android\\release.decrypted.keystore
 
 jobs:
   buildAndroid:
@@ -49,7 +50,7 @@ jobs:
       - name: Build Android App
         shell: bash
         run: |
-          dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:Release /p:AndroidSigningKeyPass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" /p:AndroidSigningKeyStore=../"${{ env.DECRYPTED_KEYSTORE }}" /p:AndroidSigningKeyAlias=key
+          dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:Release //p:AndroidSigningKeyPass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" //p:AndroidSigningStorePass="${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" //p:AndroidSigningKeyStore=..$DECRYPTED_KEYSTORE_BACKSLASH //p:AndroidSigningKeyAlias=key
         
 #       - name: Sign dev build
 #         shell: bash
