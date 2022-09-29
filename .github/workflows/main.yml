@@ -48,7 +48,14 @@ jobs:
         run: |
           dotnet build ./PipelineSampleCore/PipelineSampleCore.csproj
           dotnet build ./PipelineSampleTest/PipelineSampleTest.csproj
-          dotnet test ./PipelineSampleTest/PipelineSampleTest.csproj --no-build --verbosity normal
+          dotnet test ./PipelineSampleTest/PipelineSampleTest.csproj --logger:"trx;logfilename=testResult.trx"
+          
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Service Tests Summary
+          path: ./PipelineSampleTest/TestResults/*.trx
           
       - name: Extract Android signing key from env
         shell: bash
