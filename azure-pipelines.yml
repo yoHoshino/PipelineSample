@@ -66,6 +66,7 @@ stages:
 
         - script: |
             echo Downloaded $(keystore.secureFilePath)
+            echo Working Directory $(System.DefaultWorkingDirectory)\\DotnetMauiApp.keystore
             mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
           displayName: Move .env to Working Directory
 
@@ -75,8 +76,29 @@ stages:
           inputs:
             targetType: inline
             script: |
-              dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:$(BuildConfiguration) //p:AndroidSigningKeyPass=$(keystore-password) //p:AndroidSigningStorePass=$(keystore-password) //p:AndroidSigningKeyStore=$(System.DefaultWorkingDirectory)\DotnetMauiApp.keystore //p:AndroidSigningKeyAlias=$(key-alias)
+              dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:$(BuildConfiguration) //p:AndroidSigningKeyPass=$(keystore-password) //p:AndroidSigningStorePass=$(keystore-password) //p:AndroidSigningKeyStore=$(System.DefaultWorkingDirectory)\\DotnetMauiApp.keystore //p:AndroidSigningKeyAlias=$(key-alias)
 
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'publish'
+            projects: ./PipelineSampleCore/PipelineSampleCore.csproj
+            arguments: '-f:net6.0-android -c:$(BuildConfiguration) /p:AndroidSigningKeyPass="$(keystore-password)" /p:AndroidSigningStorePass="$(keystore-password)" /p:AndroidSigningKeyStore="$(System.DefaultWorkingDirectory)"\DotnetMauiApp.keystore //p:AndroidSigningKeyAlias="$(key-alias)"'
+            
+            
+            
+     
+            
+#   - task: DotNetCoreCLI@2
+#   displayName: 'Build csproj'
+#   inputs:
+#     command: 'publish'
+#     zipAfterPublish: false
+#     publishWebProjects: false
+#     projects: '$(ProjectName)\$(ProjectName).csproj'
+#     arguments: '--configuration $(BuildConfiguration) --output "$(build.artifactstagingdirectory)" --framework net5.0-windows  --self-contained true --runtime win-x86 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true'
+#     modifyOutputPath: false
+          
+        
         - task: CopyFiles@2
           inputs:
             Contents: |
