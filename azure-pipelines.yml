@@ -63,12 +63,18 @@ stages:
           inputs:
             secureFile: 'DotnetMauiApp.keystore'
 
+        - script: |
+            echo Downloaded $(keystore.secureFilePath)
+            mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
+            displayName: Move .env to Working Directory
+
+
         - task: Bash@3
           displayName: Build Android App
           inputs:
             targetType: inline
             script: |
-              dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:$(BuildConfiguration) //p:AndroidSigningKeyPass=$(keystore-password) //p:AndroidSigningStorePass=$(keystore-password) //p:AndroidSigningKeyStore=$(keystore.secureFile) //p:AndroidSigningKeyAlias=$(key-alias)
+              dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:$(BuildConfiguration) //p:AndroidSigningKeyPass=$(keystore-password) //p:AndroidSigningStorePass=$(keystore-password) //p:AndroidSigningKeyStore=$(System.DefaultWorkingDirectory)\DotnetMauiApp.keystore //p:AndroidSigningKeyAlias=$(key-alias)
 
         - task: CopyFiles@2
           inputs:
