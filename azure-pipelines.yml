@@ -60,13 +60,14 @@ stages:
 
         - task: DownloadSecureFile@1
           name: keystore
+          displayName: Download Secure File 
           inputs:
             secureFile: 'DotnetMauiApp.keystore'
 
         - script: |
             echo Downloaded $(keystore.secureFilePath)
             mv $(keystore.secureFilePath) $(System.DefaultWorkingDirectory)
-            displayName: Move .env to Working Directory
+          displayName: Move .env to Working Directory
 
 
         - task: Bash@3
