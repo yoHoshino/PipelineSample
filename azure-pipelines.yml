@@ -68,7 +68,7 @@ stages:
           inputs:
             targetType: inline
             script: |
-              dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:$(BuildConfiguration) //p:AndroidSigningKeyPass=$(keystore-password) //p:AndroidSigningStorePass=$(keystore-password) //p:AndroidSigningKeyStore=$(Agent.TempDirectory) //p:AndroidSigningKeyAlias=$(key-alias)
+              dotnet publish ./DotnetMauiApp/DotnetMauiApp.csproj -f:net6.0-android -c:$(BuildConfiguration) //p:AndroidSigningKeyPass=$(keystore-password) //p:AndroidSigningStorePass=$(keystore-password) //p:AndroidSigningKeyStore=$(keystore.secureFile) //p:AndroidSigningKeyAlias=$(key-alias)
 
         - task: CopyFiles@2
           inputs:
